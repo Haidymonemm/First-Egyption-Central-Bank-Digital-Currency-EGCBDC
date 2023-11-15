@@ -21,8 +21,7 @@ class Blockchain:
       def print_previous_block(self):
           return self.chain[-1]
         
-    # This is the function for proof of work
-    # and used to successfully mine the block
+   
     def proof_of_work(self, previous_proof):
         new_proof = 1
         check_proof = False
@@ -44,3 +43,31 @@ class Blockchain:
     def chain_valid(self, chain):
         previous_block = chain[0]
         block_index = 1
+    #mennah hatktby hena
+
+blockchain = Blockchain()
+
+
+previous_block = blockchain.print_previous_block()
+previous_proof = previous_block['proof']
+proof = blockchain.proof_of_work(previous_proof)
+previous_hash = blockchain.hash(previous_block)
+block = blockchain.create_block(proof, previous_hash)
+
+print("A block is MINED")
+print("Index:", block['index'])
+print("Timestamp:", block['timestamp'])
+print("Proof:", block['proof'])
+print("Previous Hash:", block['previous_hash'])
+
+response = {'chain': blockchain.chain,
+            'length': len(blockchain.chain)}
+print(json.dumps(response, indent=2))
+
+
+valid = blockchain.chain_valid(blockchain.chain)
+
+if valid:
+    print("The Blockchain is valid.")
+else:
+    print("The Blockchain is not valid.")
